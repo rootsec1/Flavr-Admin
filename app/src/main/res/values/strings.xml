@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE resources [ <!ENTITY appname "Flavr"> ]>
+
+<resources>
+  <string name="app_name">Flavr (Admin)</string>
+  <string name="app_name_actual">&appname;</string>
+  <string name="app_name_logo">&appname;.</string>
+  <string name="sign_in_title">Sign In.</string>
+  <string name="sign_in_subtitle">Enter your admin account credentials to enjoy our services.</string>
+  <string name="email_address">EMAIL ADDRESS</string>
+  <string name="password">PASSWORD</string>
+  <string name="sign_in_create_new_account">Tap here to create a new account.</string>
+  <string name="forgot_password">Forgot Password?</string>
+
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="about">About</string>
+  <string name="sign_out">Sign Out</string>
+  <string name="organization_name">Organization Name</string>
+  <string name="contact_number">Contact Number</string>
+  <string name="update_profile">Update Profile</string>
+  <string name="history">History</string>
+  <string name="under_construction">Under Construction</string>
+
+  <string name="base_server_url">http://192.168.2.8:8000/api/v1/</string>
+
+  <string-array name="categories">
+    <item>Starters</item>
+    <item>Meals</item>
+    <item>Burgers</item>
+    <item>Sandwiches</item>
+    <item>Chinese</item>
+    <item>Ice Cream</item>
+    <item>Chats</item>
+    <item>Beverages</item>
+    <item>Cold Drinks</item>
+    <item>Other</item>
+  </string-array>
+</resources>

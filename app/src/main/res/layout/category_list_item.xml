@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:orientation="horizontal"
+  android:paddingStart="16dp"
+  android:paddingEnd="16dp"
+  android:paddingTop="8dp"
+  android:paddingBottom="8dp"
+  android:background="?attr/selectableItemBackground"
+  android:clickable="true"
+  android:focusable="true"
+  android:gravity="center_vertical"
+  android:layout_width="match_parent"
+  android:layout_height="80dp">
+
+  <de.hdodenhof.circleimageview.CircleImageView
+    android:id="@+id/categoryListItemImageView"
+    tools:src="@drawable/baseline_fastfood_white_48"
+    android:layout_width="64dp"
+    android:layout_height="64dp"/>
+
+  <LinearLayout
+    android:layout_weight="1"
+    android:padding="8dp"
+    android:orientation="vertical"
+    android:layout_width="0dp"
+    android:layout_height="match_parent">
+
+    <TextView
+      android:id="@+id/categoryListItemCategoryNameTextView"
+      android:textColor="@color/colorTextDark"
+      tools:text="Category Name"
+      android:textSize="20sp"
+      android:textStyle="bold"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+
+    <TextView
+      android:id="@+id/categoryListItemCategoryItemsTextView"
+      android:fontFamily="@font/roboto_light"
+      tools:text="Bhel Puri, Sev Puri, Masala Puri, Pani Puri, Dahi Puri, Nippat Masala"
+      android:maxLines="1"
+      android:ellipsize="end"
+      android:textSize="16sp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+
+  </LinearLayout>
+
+</LinearLayout>
