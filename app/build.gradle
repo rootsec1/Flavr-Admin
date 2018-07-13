@@ -57,5 +57,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:15.0.1'
     //Runtime Permissions
     implementation 'com.karumi:dexter:5.0.0'
+    //Nearby Messages API
+    implementation 'com.google.android.gms:play-services-nearby:15.0.1'
 }
 apply plugin: 'com.google.gms.google-services'

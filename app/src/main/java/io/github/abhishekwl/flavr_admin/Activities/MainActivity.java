@@ -6,6 +6,8 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.OnTabSelectedListener;
 import android.support.design.widget.TabLayout.Tab;
@@ -20,10 +22,18 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.nearby.Nearby;
+import com.google.android.gms.nearby.messages.Message;
 import com.google.firebase.auth.FirebaseAuth;
 import io.github.abhishekwl.flavr_admin.Adapters.MainViewPagerAdapter;
+import io.github.abhishekwl.flavr_admin.Helpers.ApiClient;
+import io.github.abhishekwl.flavr_admin.Helpers.ApiInterface;
+import io.github.abhishekwl.flavr_admin.Models.Hotel;
 import io.github.abhishekwl.flavr_admin.R;
 import java.util.Objects;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
   private FirebaseAuth firebaseAuth;
   private FusedLocationProviderClient fusedLocationProviderClient;
   public Location deviceLocation;
+  private ApiInterface apiInterface;
+  private Message message;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
     retrieveDeviceLocation();
     unbinder = ButterKnife.bind(MainActivity.this);
     firebaseAuth = FirebaseAuth.getInstance();
+    apiInterface = ApiClient.getRetrofit(getApplicationContext()).create(ApiInterface.class);
+    publishHotel();
   }
 
   @SuppressLint("MissingPermission")
@@ -98,6 +112,36 @@ public class MainActivity extends AppCompatActivity {
     });
   }
 
+  private void publishHotel() {
+    apiInterface.getHotel(firebaseAuth.getUid()).enqueue(new Callback<Hotel>() {
+      @Override
+      public void onResponse(@NonNull Call<Hotel> call, @NonNull Response<Hotel> response) {
+        if (response.body()==null) Snackbar.make(mainTabLayout, "There is no place associated with your email address.", Snackbar.LENGTH_SHORT).show();
+        else {
+          String hotelId = Objects.requireNonNull(response.body()).getId();
+          String uid = Objects.requireNonNull(response.body()).getUid();
+          String publishString = hotelId+":"+uid;
+          message = new Message(publishString.getBytes());
+          publishMessage(message);
+        }
+      }
+
+      @Override
+      public void onFailure(@NonNull Call<Hotel> call, @NonNull Throwable t) {
+        Snackbar.make(mainTabLayout, t.getMessage(), Snackbar.LENGTH_SHORT).show();
+      }
+    });
+  }
+
+  private void publishMessage(Message message) {
+    if (message!=null) Nearby.getMessagesClient(MainActivity.this).publish(message).addOnCompleteListener(
+        task -> {
+          if (task.isSuccessful()) Snackbar.make(mainTabLayout, "Broadcasting hotel presence :)", Snackbar.LENGTH_SHORT).show();
+          else Snackbar.make(mainTabLayout, "There was an error broadcasting your place's presence :(", Snackbar.LENGTH_SHORT).show();
+        });
+    else Snackbar.make(mainTabLayout, "Error generating message to broadcast", Snackbar.LENGTH_SHORT).show();
+  }
+
   public Location getDeviceLocation() {
     return deviceLocation;
   }
@@ -106,6 +150,13 @@ public class MainActivity extends AppCompatActivity {
   protected void onStart() {
     super.onStart();
     retrieveDeviceLocation();
+    publishMessage(message);
+  }
+
+  @Override
+  protected void onStop() {
+    if (message!=null) Nearby.getMessagesClient(MainActivity.this).unpublish(message);
+    super.onStop();
   }
 
   @Override

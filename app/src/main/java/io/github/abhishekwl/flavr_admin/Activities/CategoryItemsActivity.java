@@ -1,5 +1,6 @@
 package io.github.abhishekwl.flavr_admin.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.google.firebase.auth.FirebaseAuth;
 import io.github.abhishekwl.flavr_admin.Adapters.FoodItemsRecyclerViewAdapter;
@@ -61,5 +63,18 @@ public class CategoryItemsActivity extends AppCompatActivity {
     categoryItemsRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
     categoryItemsRecyclerView.setHasFixedSize(true);
     categoryItemsRecyclerView.setAdapter(foodItemsRecyclerViewAdapter);
+  }
+
+  @OnClick(R.id.categoryItemsAddButton)
+  public void onAddItemButtonPress() {
+    Intent addItemIntent = new Intent(CategoryItemsActivity.this, AddItemActivity.class);
+    addItemIntent.putExtra("CATEGORY", currentCategory);
+    startActivity(addItemIntent);
+  }
+
+  @Override
+  protected void onDestroy() {
+    unbinder.unbind();
+    super.onDestroy();
   }
 }

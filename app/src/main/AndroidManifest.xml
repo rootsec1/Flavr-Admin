@@ -7,6 +7,8 @@
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.BLUETOOTH" />
+  <uses-permission android:name="android.permission.VIBRATE" />
 
   <application
     android:allowBackup="true"
@@ -16,6 +18,9 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
+    <meta-data
+      android:name="com.google.android.nearby.messages.API_KEY"
+      android:value="AIzaSyAoIpf2nrHbJxiTju44-84aUs5vJYxUGaU" />
     <activity
       android:name=".Activities.SplashActivity"
       android:theme="@style/SplashAppTheme">
@@ -38,7 +43,11 @@
       android:name=".Activities.HistoryActivity"
       android:parentActivityName=".Activities.MainActivity">
     </activity>
-    <activity android:name=".Activities.CategoryItemsActivity" android:parentActivityName=".Activities.MainActivity">
+    <activity
+      android:name=".Activities.CategoryItemsActivity"
+      android:parentActivityName=".Activities.MainActivity">
+    </activity>
+    <activity android:name=".Activities.AddItemActivity" android:label="Add New Item">
     </activity>
   </application>
 
