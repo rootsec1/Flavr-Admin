@@ -131,7 +131,7 @@ public class ProfileFragment extends Fragment {
         .title(R.string.app_name)
         .content(message)
         .progress(true, 0)
-        .build();
+        .show();
     profileFragmentUpdateDetailsButton.setEnabled(false);
   }
 
@@ -139,7 +139,7 @@ public class ProfileFragment extends Fragment {
     if (materialDialog != null && materialDialog.isShowing()) {
       materialDialog.dismiss();
     }
-    if (!profileFragmentUpdateDetailsButton.isEnabled()) {
+    if (profileFragmentUpdateDetailsButton!=null && !profileFragmentUpdateDetailsButton.isEnabled()) {
       profileFragmentUpdateDetailsButton.setEnabled(true);
     }
   }

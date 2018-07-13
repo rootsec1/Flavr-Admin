@@ -33,7 +33,12 @@
       android:label="@string/app_name"
       android:name=".Activities.MainActivity">
     </activity>
-    <activity android:name=".Activities.HistoryActivity" android:label="Order History" android:parentActivityName=".Activities.MainActivity">
+    <activity
+      android:label="Order History"
+      android:name=".Activities.HistoryActivity"
+      android:parentActivityName=".Activities.MainActivity">
+    </activity>
+    <activity android:name=".Activities.CategoryItemsActivity" android:parentActivityName=".Activities.MainActivity">
     </activity>
   </application>
 

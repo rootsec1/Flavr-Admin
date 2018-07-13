@@ -35,13 +35,13 @@ public interface ApiInterface {
   @GET("food/{id}")
   Call<ArrayList<Food>> getAllFoodItems(@Path("id") String id, @Query("uid") String uid);
 
-  @GET("food/{_id}")
-  Call<Food> getSpecificFoodItem(@Path("_id") String id);
+  @GET("food/{id}")
+  Call<Food> getSpecificFoodItem(@Path("id") String id);
 
   @FormUrlEncoded
-  @PUT("hotels/{_id}")
-  Call<Food> updateFoodItem(@Path("_id") String id, @Field("name") String name, @Field("cost") double cost, @Field("category") String category, @Field("image") String image);
+  @PUT("food/{id}")
+  Call<Food> updateFoodItem(@Path("id") String id, @Field("name") String name, @Field("cost") double cost, @Field("category") String category, @Field("image") String image);
 
-  @DELETE("hotels/{_id}")
-  Call<Food> deleteFoodItem(@Path("_id") String id);
+  @DELETE("food/{id}")
+  Call<Food> deleteFoodItem(@Path("id") String id);
 }

@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Food implements android.os.Parcelable {
 
+  @SerializedName("_id") private String id;
   @SerializedName("name") private String name;
   @SerializedName("cost") private double cost;
   @SerializedName("image") private String image;
@@ -59,6 +60,14 @@ public class Food implements android.os.Parcelable {
     this.hotel = hotel;
   }
 
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
 
   @Override
   public int describeContents() {
@@ -67,6 +76,7 @@ public class Food implements android.os.Parcelable {
 
   @Override
   public void writeToParcel(Parcel dest, int flags) {
+    dest.writeString(this.id);
     dest.writeString(this.name);
     dest.writeDouble(this.cost);
     dest.writeString(this.image);
@@ -75,6 +85,7 @@ public class Food implements android.os.Parcelable {
   }
 
   private Food(Parcel in) {
+    this.id = in.readString();
     this.name = in.readString();
     this.cost = in.readDouble();
     this.image = in.readString();

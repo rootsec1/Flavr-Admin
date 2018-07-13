@@ -1,6 +1,7 @@
 package io.github.abhishekwl.flavr_admin.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
@@ -8,10 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
+import io.github.abhishekwl.flavr_admin.Activities.CategoryItemsActivity;
 import io.github.abhishekwl.flavr_admin.Models.Category;
 import io.github.abhishekwl.flavr_admin.Models.Food;
 import io.github.abhishekwl.flavr_admin.R;
@@ -55,6 +58,8 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
     TextView categoryNameTextView;
     @BindView(R.id.categoryListItemCategoryItemsTextView)
     TextView categoryItemsTextView;
+    @BindView(R.id.categoryListItemRootLayout)
+    LinearLayout categoryRootLayout;
 
     ItemViewHolder(View itemView) {
       super(itemView);
@@ -69,6 +74,12 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
       String categoryItems = items.toString().trim();
       categoryItems = categoryItems.substring(0, categoryItems.length()-1);
       categoryItemsTextView.setText(categoryItems);
+
+      categoryRootLayout.setOnClickListener(v -> {
+        Intent categoryItemsIntent = new Intent(context, CategoryItemsActivity.class);
+        categoryItemsIntent.putExtra("CATEGORY", category);
+        context.startActivity(categoryItemsIntent);
+      });
     }
   }
 }

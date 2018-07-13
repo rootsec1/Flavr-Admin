@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".Activities.CategoryItemsActivity">
+
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/categoryItemsRecyclerView"
+    android:scrollbars="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  </android.support.v7.widget.RecyclerView>
+
+  <android.support.design.widget.FloatingActionButton
+    android:id="@+id/categoryItemsAddButton"
+    android:clickable="true"
+    android:focusable="true"
+    app:rippleColor="@color/colorPrimary"
+    android:src="@drawable/baseline_add_white_24"
+    app:fabSize="normal"
+    app:elevation="8dp"
+    android:layout_margin="20dp"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentEnd="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
+
+</RelativeLayout>
