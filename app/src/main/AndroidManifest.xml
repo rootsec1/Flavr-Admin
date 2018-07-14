@@ -7,11 +7,11 @@
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-  <uses-permission android:name="android.permission.BLUETOOTH" />
-  <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-  <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-  <uses-permission android:name="android.permission.VIBRATE" />
+  <uses-permission android:name="android.permission.BLUETOOTH"/>
+  <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+  <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+  <uses-permission android:name="android.permission.VIBRATE"/>
 
   <application
     android:allowBackup="true"
@@ -23,7 +23,8 @@
     android:theme="@style/AppTheme">
     <meta-data
       android:name="com.google.android.nearby.messages.API_KEY"
-      android:value="AIzaSyAoIpf2nrHbJxiTju44-84aUs5vJYxUGaU" />
+      android:value="AIzaSyAoIpf2nrHbJxiTju44-84aUs5vJYxUGaU"/>
+
     <activity
       android:name=".Activities.SplashActivity"
       android:theme="@style/SplashAppTheme">
@@ -50,7 +51,11 @@
       android:name=".Activities.CategoryItemsActivity"
       android:parentActivityName=".Activities.MainActivity">
     </activity>
-    <activity android:name=".Activities.AddItemActivity" android:label="Add New Item">
+    <activity
+      android:label="Add New Item"
+      android:name=".Activities.AddItemActivity">
+    </activity>
+    <activity android:name=".Activities.SignUpActivity" android:parentActivityName=".Activities.SignInActivity" android:label="Sign Up">
     </activity>
   </application>
 

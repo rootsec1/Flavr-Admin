@@ -81,11 +81,15 @@ public class CategoryItemsActivity extends AppCompatActivity {
         new Callback<ArrayList<Food>>() {
           @Override
           public void onResponse(@NonNull Call<ArrayList<Food>> call, @NonNull Response<ArrayList<Food>> response) {
-            foodArrayList.clear();
-            for (int i=0; i<response.body().size(); i++) if (!response.body().get(i).getCategory().equalsIgnoreCase(currentCategory.getCategoryName())) response.body().remove(i);
-            foodArrayList.addAll(response.body());
-            swipeRefreshLayout.setRefreshing(false);
-            foodItemsRecyclerViewAdapter.notifyDataSetChanged();
+            if (response.body()==null) Snackbar.make(categoryItemsAddButton, "There has been an error contacting our servers :(", Snackbar.LENGTH_LONG)
+            .setActionTextColor(colorAccent)
+            .setAction("RETRY", v -> performNetworkRequest()).show();
+            else {
+              foodArrayList.clear();
+              for (Food food: Objects.requireNonNull(response.body())) if (food.getCategory().equalsIgnoreCase(currentCategory.getCategoryName())) foodArrayList.add(food);
+              swipeRefreshLayout.setRefreshing(false);
+              foodItemsRecyclerViewAdapter.notifyDataSetChanged();
+            }
           }
 
           @Override

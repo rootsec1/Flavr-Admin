@@ -59,6 +59,11 @@ public class SignInActivity extends AppCompatActivity {
     signInProgressBar.getProgressDrawable().setColorFilter(colorAccent, Mode.SRC_IN);
   }
 
+  @OnClick(R.id.signInCreateNewAccountTextView)
+  public void onSignUpTextViewPress() {
+    startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
+  }
+
   @OnClick(R.id.signInButton)
   public void onSignInButtonPress() {
     String clientEmail = signInEmailEditText.getText().toString();

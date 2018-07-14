@@ -20,9 +20,9 @@
   <string name="contact_number">Contact Number</string>
   <string name="update_profile">Update Profile</string>
   <string name="history">History</string>
-  <string name="under_construction">Under Construction</string>
+  <string name="under_construction">Under\nConstruction</string>
 
-  <string name="base_server_url">http://192.168.43.22:8000/api/v1/</string>
+  <string name="base_server_url">http://192.168.0.114:8000/api/v1/</string>
 
   <string-array name="categories">
     <item>Starters</item>
