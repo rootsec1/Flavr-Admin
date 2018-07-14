@@ -1,6 +1,7 @@
 package io.github.abhishekwl.flavr_admin.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
+import io.github.abhishekwl.flavr_admin.Activities.AddItemActivity;
 import io.github.abhishekwl.flavr_admin.Helpers.ApiClient;
 import io.github.abhishekwl.flavr_admin.Helpers.ApiInterface;
 import io.github.abhishekwl.flavr_admin.Models.Food;
@@ -88,6 +90,13 @@ public class FoodItemsRecyclerViewAdapter extends RecyclerView.Adapter<FoodItems
               deleteFoodItemFromMenu(food, position, itemImageView);
             }).show();
         return true;
+      });
+
+      rootLinearLayout.setOnClickListener(v -> {
+        Intent editItemIntent = new Intent(rootContext, AddItemActivity.class);
+        editItemIntent.putExtra("EDIT_ITEM", true);
+        editItemIntent.putExtra("EDIT_FOOD", food);
+        rootContext.startActivity(editItemIntent);
       });
     }
   }

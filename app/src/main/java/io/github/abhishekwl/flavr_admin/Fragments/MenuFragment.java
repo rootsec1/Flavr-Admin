@@ -2,6 +2,7 @@ package io.github.abhishekwl.flavr_admin.Fragments;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,8 +18,10 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.google.firebase.auth.FirebaseAuth;
+import io.github.abhishekwl.flavr_admin.Activities.AddItemActivity;
 import io.github.abhishekwl.flavr_admin.Adapters.CategoriesRecyclerViewAdapter;
 import io.github.abhishekwl.flavr_admin.Helpers.ApiClient;
 import io.github.abhishekwl.flavr_admin.Helpers.ApiInterface;
@@ -72,7 +75,6 @@ public class MenuFragment extends Fragment {
 
   private void initializeViews() {
     initializeRecyclerView();
-    fetchHotel();
   }
 
   private void fetchHotel() {
@@ -158,10 +160,16 @@ public class MenuFragment extends Fragment {
     //Snackbar.make(menuFragmentAddItemButton, message, Snackbar.LENGTH_SHORT).show();
   }
 
+  @OnClick(R.id.menuFragmentAddItemButton)
+  public void onAddItemButtonPress() {
+    rootView.getContext().startActivity(new Intent(rootView.getContext(), AddItemActivity.class));
+  }
+
   @Override
   public void onStart() {
     super.onStart();
     unbinder = ButterKnife.bind(this, rootView);
+    fetchHotel();
   }
 
   @Override

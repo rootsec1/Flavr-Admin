@@ -22,7 +22,7 @@
   <string name="history">History</string>
   <string name="under_construction">Under Construction</string>
 
-  <string name="base_server_url">http://192.168.2.8:8000/api/v1/</string>
+  <string name="base_server_url">http://192.168.43.22:8000/api/v1/</string>
 
   <string-array name="categories">
     <item>Starters</item>

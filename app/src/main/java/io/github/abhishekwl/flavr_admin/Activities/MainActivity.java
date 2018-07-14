@@ -24,6 +24,8 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.messages.Message;
+import com.google.android.gms.nearby.messages.PublishOptions;
+import com.google.android.gms.nearby.messages.Strategy;
 import com.google.firebase.auth.FirebaseAuth;
 import io.github.abhishekwl.flavr_admin.Adapters.MainViewPagerAdapter;
 import io.github.abhishekwl.flavr_admin.Helpers.ApiClient;
@@ -116,13 +118,12 @@ public class MainActivity extends AppCompatActivity {
     apiInterface.getHotel(firebaseAuth.getUid()).enqueue(new Callback<Hotel>() {
       @Override
       public void onResponse(@NonNull Call<Hotel> call, @NonNull Response<Hotel> response) {
-        if (response.body()==null) Snackbar.make(mainTabLayout, "There is no place associated with your email address.", Snackbar.LENGTH_SHORT).show();
+        if (response.body()==null) notifyMessage("There is no place associated with your email address.");
         else {
           String hotelId = Objects.requireNonNull(response.body()).getId();
           String uid = Objects.requireNonNull(response.body()).getUid();
           String publishString = hotelId+":"+uid;
-          message = new Message(publishString.getBytes());
-          publishMessage(message);
+          publishMessage(new Message(publishString.getBytes()));
         }
       }
 
@@ -134,16 +135,27 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void publishMessage(Message message) {
-    if (message!=null) Nearby.getMessagesClient(MainActivity.this).publish(message).addOnCompleteListener(
-        task -> {
-          if (task.isSuccessful()) Snackbar.make(mainTabLayout, "Broadcasting hotel presence :)", Snackbar.LENGTH_SHORT).show();
-          else Snackbar.make(mainTabLayout, "There was an error broadcasting your place's presence :(", Snackbar.LENGTH_SHORT).show();
-        });
-    else Snackbar.make(mainTabLayout, "Error generating message to broadcast", Snackbar.LENGTH_SHORT).show();
+    if (message!=null) {
+      Strategy strategy = new Strategy.Builder()
+          .setDiscoveryMode(Strategy.DISCOVERY_MODE_BROADCAST)
+          .setDistanceType(Strategy.DISTANCE_TYPE_DEFAULT)
+          .setTtlSeconds(Strategy.TTL_SECONDS_MAX)
+          .build();
+      Nearby.getMessagesClient(MainActivity.this).publish(message, new PublishOptions.Builder().setStrategy(strategy).build()).addOnCompleteListener(
+          task -> {
+            if (task.isSuccessful()) notifyMessage("Broadcasting hotel presence :)");
+            else notifyMessage("There was an error broadcasting your place's presence :(");
+          });
+    }
+    else notifyMessage("Error generating message to broadcast");
   }
 
   public Location getDeviceLocation() {
     return deviceLocation;
+  }
+
+  private void notifyMessage(String message) {
+    Snackbar.make(mainTabLayout, message, Snackbar.LENGTH_SHORT).show();
   }
 
   @Override

@@ -32,8 +32,11 @@ public interface ApiInterface {
   @POST("food/")
   Call<Food> createNewFoodItem(@Field("name") String name, @Field("cost") double cost, @Field("category") String category, @Field("hotel") String _id, @Field("image") String image);
 
-  @GET("food/{id}")
-  Call<ArrayList<Food>> getAllFoodItems(@Path("id") String id, @Query("uid") String uid);
+  @GET("food/{hotelId}")
+  Call<ArrayList<Food>> getAllFoodItems(@Path("hotelId") String hotelId, @Query("uid") String uid);
+
+  @GET("food{hotelId}")
+  Call<ArrayList<Food>> getFoodItemsInCategory(@Path("hotelId") String hotelId, @Query("uid") String uid, @Query("category") String category);
 
   @GET("food/{id}")
   Call<Food> getSpecificFoodItem(@Path("id") String id);
