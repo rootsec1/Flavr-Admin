@@ -94,13 +94,31 @@ public class SignUpActivity extends AppCompatActivity {
       String password = signUpPasswordEditText.getText().toString();
       String confirmPassword = signUpConfirmPasswordEditText.getText().toString();
 
-      disableUI("Creating new admin account");
+      if (validateEntries(hotelName, contactNumber, emailAddress, password, confirmPassword)) {
+        disableUI("Creating new admin account");
 
-      firebaseAuth.createUserWithEmailAndPassword(emailAddress, password).addOnSuccessListener(
-          authResult -> {
-            performNetworkRequest(authResult.getUser().getUid(), hotelName, contactNumber, emailAddress);
-          }).addOnFailureListener(e -> notifyMessage(e.getMessage()));
+        firebaseAuth.createUserWithEmailAndPassword(emailAddress, password).addOnSuccessListener(
+            authResult -> {
+              performNetworkRequest(authResult.getUser().getUid(), hotelName, contactNumber, emailAddress);
+            }).addOnFailureListener(e -> notifyMessage(e.getMessage()));
+      }
     }
+  }
+
+  private boolean validateEntries(String hotelName, String contactNumber, String emailAddress, String password, String confirmPassword) {
+    if (TextUtils.isEmpty(hotelName)) {
+      notifyMessage("Please enter a valid name for your organization");
+      return false;
+    } else if (TextUtils.isEmpty(contactNumber)) {
+      notifyMessage("Please enter a contact number for your organization");
+      return false;
+    } else if (TextUtils.isEmpty(emailAddress) || !emailAddress.contains("@")) {
+      notifyMessage("Please enter a valid Email Address");
+      return false;
+    } else if (!password.equals(confirmPassword)) {
+      notifyMessage("Passwords do not match");
+      return false;
+    } else return true;
   }
 
   private void performNetworkRequest(String uid, String hotelName, String contactNumber, String emailAddress) {

@@ -13,6 +13,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import butterknife.Unbinder;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.MaterialDialog.Builder;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.common.util.NumberUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.storage.FirebaseStorage;
@@ -162,13 +164,27 @@ public class ProfileFragment extends Fragment {
       String name = profileFragmentOrganizationNameEditText.getText().toString();
       String phone = profileFragmentContactNumberEditText.getText().toString();
       String email = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail();
-      double latitude = ((MainActivity) Objects.requireNonNull(getActivity())).getDeviceLocation()
-          .getLatitude();
-      double longitude = ((MainActivity) Objects.requireNonNull(getActivity())).getDeviceLocation()
-          .getLongitude();
-      disableUI("Updating profile");
-      updateHotelDetails(uid, name, phone, email, latitude, longitude);
+      double latitude = ((MainActivity) Objects.requireNonNull(getActivity())).getDeviceLocation().getLatitude();
+      double longitude = ((MainActivity) Objects.requireNonNull(getActivity())).getDeviceLocation().getLongitude();
+
+      if (validateEntries(name, phone, latitude, longitude)) {
+        disableUI("Updating profile");
+        updateHotelDetails(uid, name, phone, email, latitude, longitude);
+      }
     }
+  }
+
+  private boolean validateEntries(String name, String phone, double latitude, double longitude) {
+    if (TextUtils.isEmpty(name)) {
+      notifyMessage("Please enter a valid name for your organization");
+      return false;
+    } else if (TextUtils.isEmpty(phone) || phone.length()!=10 || !NumberUtils.isNumeric(phone)) {
+      notifyMessage("Please enter a valid contact number.");
+      return false;
+    } else if (latitude==0.0 || longitude==0.0) {
+      notifyMessage("Retry in a moment. Still retrieving device location");
+      return false;
+    } else return true;
   }
 
   private void updateHotelDetails(String uid, String name, String phone, String email,
