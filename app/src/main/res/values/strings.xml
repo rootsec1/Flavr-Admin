@@ -21,7 +21,7 @@
   <string name="history">History</string>
   <string name="under_construction">Under\nConstruction</string>
 
-  <string name="base_server_url">http://192.168.0.114:8000/api/v1/</string>
+  <string name="base_server_url">http://192.168.2.6:8000/api/v1/</string>
 
   <string-array name="categories">
     <item>Starters</item>
@@ -34,5 +34,12 @@
     <item>Beverages</item>
     <item>Cold Drinks</item>
     <item>Other</item>
+  </string-array>
+
+  <string-array name="order_list_item_menu">
+    <item>Finish Order</item>
+    <item>Delete Order</item>
+    <item>Call</item>
+    <item>View Profile Picture</item>
   </string-array>
 </resources>

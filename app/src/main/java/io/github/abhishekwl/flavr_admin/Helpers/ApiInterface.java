@@ -2,6 +2,7 @@ package io.github.abhishekwl.flavr_admin.Helpers;
 
 import io.github.abhishekwl.flavr_admin.Models.Food;
 import io.github.abhishekwl.flavr_admin.Models.Hotel;
+import io.github.abhishekwl.flavr_admin.Models.Order;
 import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
@@ -47,4 +48,14 @@ public interface ApiInterface {
 
   @DELETE("food/{id}")
   Call<Food> deleteFoodItem(@Path("id") String id);
+
+  //ORDERS
+  @GET("orders/{id}")
+  Call<ArrayList<Order>> getAllOrderItems(@Path("id") String hotelId, @Query("uid") String hotelUid);
+
+  @GET("orders/{id}")
+  Call<Order> getSpecificOrder(@Path("id") String orderId);
+
+  @DELETE("orders/{id}")
+  Call<Order> deleteOrder(@Path("id") String orderId);
 }
